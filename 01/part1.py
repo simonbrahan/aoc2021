@@ -1,4 +1,4 @@
-with open('sample.txt') as f:
+with open('input.txt') as f:
     readings = [int(line.strip()) for line in f]
 
 last_reading = None
