@@ -3,6 +3,7 @@ from collections import defaultdict
 def gamma_epsilon(report):
     on_bit_counts = defaultdict(int)
     bitset_count = 0
+    bitset_length = len(report[0])
     for bitset in report:
         bitset_count += 1
         for idx, bit in enumerate(bitset):
@@ -13,12 +14,15 @@ def gamma_epsilon(report):
 
     gamma_bit_list = ''
     epsilon_bit_list = ''
-    for i in range(0, len(on_bit_counts)):
-        if on_bit_counts[i] > majority_bit_count:
+    for i in range(0, bitset_length):
+        if on_bit_counts[i] == majority_bit_count:
+            gamma_bit_list += 't'
+            epsilon_bit_list += 't'
+        elif on_bit_counts[i] > majority_bit_count:
             gamma_bit_list += '1'
             epsilon_bit_list += '0'
         else:
             gamma_bit_list += '0'
             epsilon_bit_list += '1'
 
-    return int(gamma_bit_list, 2), int(epsilon_bit_list, 2)
+    return gamma_bit_list, epsilon_bit_list

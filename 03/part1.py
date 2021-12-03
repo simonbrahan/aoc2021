@@ -5,4 +5,4 @@ with open('input.txt') as f:
 
 gamma, epsilon = gamma_epsilon(report)
 
-print(gamma * epsilon)
+print(int(gamma, 2) * int(epsilon, 2))
