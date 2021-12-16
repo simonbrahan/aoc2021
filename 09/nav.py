@@ -13,6 +13,26 @@ def is_low_point(x, y, elevation):
     return True
 
 
+def get_basin_size(x, y, elevation):
+    def get_basin_extent(x, y, elevation, basin_points):
+        if (x, y) in basin_points:
+            return basin_points
+
+        if elevation[y][x] == 9:
+            return basin_points
+
+        basin_points.add((x, y))
+
+        for neighbour_x, neighbour_y in get_neighbours(x, y, elevation):
+            basin_points = get_basin_extent(neighbour_x, neighbour_y, elevation, basin_points)
+
+        return basin_points
+
+    basin_extent = get_basin_extent(x, y, elevation, set())
+
+    return len(basin_extent)
+
+
 def elevation_from_file(filepath):
     with open(filepath) as f:
         elevation = [[int(char) for char in line.strip()] for line in f]
