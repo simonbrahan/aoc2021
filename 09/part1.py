@@ -1,28 +1,6 @@
-def is_low_point(x, y, elevation):
-    directions = [(-1, 0), (0, -1), (0, 1), (1, 0)]
+from nav import elevation_from_file, is_low_point
 
-    height = elevation[y][x]
-
-    for add_x, add_y in directions:
-        neighbour_x = x + add_x
-        neighbour_y = y + add_y
-
-        if neighbour_x < 0 or neighbour_y < 0:
-            continue
-
-        try:
-            neighbour_height = elevation[neighbour_y][neighbour_x]
-        except IndexError:
-            continue
-
-        if neighbour_height <= height:
-            return False
-
-    return True
-
-
-with open('input.txt') as f:
-    elevation = [[int(char) for char in line.strip()] for line in f]
+elevation = elevation_from_file('input.txt')
 
 risk_level_sum = 0
 
