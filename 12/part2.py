@@ -31,7 +31,6 @@ while len(paths) > 0:
     options = links[current_cave]
     for option in options:
         new_cave_visit_count = copy(cave_visit_count)
-        abandoning = False
 
         # If this option is a small cave, check whether we're allowed to visit it again
         if option in small_caves:
