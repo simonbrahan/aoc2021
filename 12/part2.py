@@ -3,7 +3,7 @@ from copy import copy
 
 small_caves = set()
 links = defaultdict(list)
-with open('sample.txt') as f:
+with open('input.txt') as f:
     for line in f:
         left, right = line.strip().split('-')
 
@@ -25,7 +25,6 @@ while len(paths) > 0:
 
     # If we're in the end cave, add this to the complete paths and skip to the next path
     if current_cave == 'end':
-        print(','.join(path))
         complete_paths.append(path)
         continue
 
