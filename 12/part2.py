@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 from copy import copy
 
 small_caves = set()
@@ -17,10 +17,10 @@ with open('input.txt') as f:
         if right.islower():
             small_caves.add(right)
 
-paths = [(['start'], defaultdict(int))]
+paths = deque([(['start'], defaultdict(int))])
 complete_paths = []
 while len(paths) > 0:
-    path, cave_visit_count = paths.pop(0)
+    path, cave_visit_count = paths.popleft()
     current_cave = path[-1]
 
     # If we're in the end cave, add this to the complete paths and skip to the next path
