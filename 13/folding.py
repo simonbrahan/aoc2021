@@ -17,9 +17,9 @@ def fold_left(dots, fold_placement):
 
     for dot in dots:
         if dot[0] > fold_placement:
-            folded_dots.add(dot)
+            folded_dots.add((dot[0] - fold_placement - 1, dot[1]))
         else:
-            folded_dots.add((2 * fold_placement - dot[0], dot[1]))
+            folded_dots.add((fold_placement - dot[0] - 1, dot[1]))
 
     return folded_dots
 
