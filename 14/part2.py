@@ -15,8 +15,10 @@ def update_pair_counts(pair_counts, rules):
     return new_counts
 
 
-with open('sample.txt') as f:
-    polymer_pair_counts = pair_counts(f.readline().strip())
+with open('input.txt') as f:
+    starting_polymer = f.readline().strip()
+    last_letter = starting_polymer[-1]
+    polymer_pair_counts = pair_counts(starting_polymer)
 
     next(f)
     pair_transform_rules = defaultdict(list)
@@ -27,4 +29,13 @@ with open('sample.txt') as f:
 for i in range(40):
     polymer_pair_counts = update_pair_counts(polymer_pair_counts, pair_transform_rules)
 
-print(polymer_pair_counts)
+letter_counts = defaultdict(int)
+
+letter_counts[last_letter] += 1
+
+for pair, count in polymer_pair_counts.items():
+    letter_counts[pair[0]] += count
+
+char_counts = letter_counts.values()
+
+print(max(char_counts) - min(char_counts))
