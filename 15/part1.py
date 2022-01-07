@@ -45,16 +45,4 @@ while destination in unvisited_cells:
 
     unvisited_cells.remove(current)
 
-for y in range(11):
-    row = []
-    for x in range(11):
-        risk = cumulative_cell_risks[(x, y)]
-
-        if risk == math.inf:
-            row.append('  ')
-        else:
-            row.append('%2d' % risk)
-
-    print(' '.join(row))
-
 print(cumulative_cell_risks[destination])
