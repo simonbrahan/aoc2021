@@ -1,4 +1,5 @@
 from collections import defaultdict
+from heapq import heappop, heappush
 import math
 
 def get_neighbours(cell, grid):
@@ -22,6 +23,8 @@ with open('input.txt') as f:
 destination = (len(grid) - 1, len(grid[0]) - 1)
 cumulative_cell_risks = defaultdict(lambda: math.inf)
 cumulative_cell_risks[(0, 0)] = 0
+cell_visit_queue = []
+heappush(cell_visit_queue, (0, (0, 0)))
 
 unvisited_cells = set()
 for y, row in enumerate(grid):
@@ -29,7 +32,13 @@ for y, row in enumerate(grid):
         unvisited_cells.add((x, y))
 
 while destination in unvisited_cells:
-    current = min(unvisited_cells, key=lambda cell: cumulative_cell_risks[cell])
+    current_risk, current = heappop(cell_visit_queue)
+
+    # heap is tricky to keep clean, so sometimes a visited cell will be added more than once.
+    # No bother; just ignore it.
+    if current not in unvisited_cells:
+        continue
+
     neighbours = get_neighbours(current, grid)
 
     for neighbour in neighbours:
@@ -42,6 +51,7 @@ while destination in unvisited_cells:
         )
 
         cumulative_cell_risks[neighbour] = neighbour_risk
+        heappush(cell_visit_queue, (neighbour_risk, neighbour))
 
     unvisited_cells.remove(current)
 
